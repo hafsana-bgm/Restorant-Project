@@ -16,6 +16,7 @@ namespace Restorant_Project.Data
         public DbSet<Chefs> chefs { get; set; } = default!;
         public DbSet<Client> clients { get; set; } = default!;
         public DbSet<Menu> Menu { get; set; } = default!;
+        public DbSet<Lebel> Lebels { get; set; } = default!;
         public DbSet<Service> Services { get; set; } = default!;
        
     }

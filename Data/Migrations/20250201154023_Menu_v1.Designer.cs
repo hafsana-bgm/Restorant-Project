@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Restorant_Project.Data;
 
@@ -11,9 +12,11 @@ using Restorant_Project.Data;
 namespace Restorant_Project.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250201154023_Menu_v1")]
+    partial class Menu_v1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -328,22 +331,6 @@ namespace Restorant_Project.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Contactus");
-                });
-
-            modelBuilder.Entity("Restorant_Project.Models.Lebel", b =>
-                {
-                    b.Property<int>("LebelId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LebelId"));
-
-                    b.Property<string>("LebelName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("LebelId");
-
-                    b.ToTable("Lebels");
                 });
 
             modelBuilder.Entity("Restorant_Project.Models.Menu", b =>

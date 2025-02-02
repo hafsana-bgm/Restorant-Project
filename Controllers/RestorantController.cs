@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Reflection.Metadata;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Restorant_Project.Data;
 using Restorant_Project.Models;
@@ -20,10 +21,7 @@ namespace Restorant_Project.Controllers
         } 
      
 
-        public IActionResult About()
-        {
-            return View();
-        } 
+
 
         public IActionResult Service()
         {
@@ -66,9 +64,38 @@ namespace Restorant_Project.Controllers
         {
             if (id == null)
                 return NotFound();
-            var customerdata = _context.Contactus.FirstOrDefault(customer => customer.Id == id);
+            var customerdata = _context.Contactus.FirstOrDefault(x => x.Id == id);
            
-            return View(customerdata);
+            return View (customerdata);
+        }
+
+        [HttpPost]
+        public IActionResult ReservEdit(ContactUs contact)
+        {
+            if (contact.Name != null && contact.Email != null && contact.DateTime != null && contact.PeopleCount != null)
+            {
+                _context.Update(contact);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("ReservList");
+        }
+
+        public IActionResult ReservDelete(int? id)
+        {
+            if(id==null)
+
+            return NotFound();
+
+            var customerdata = _context.Contactus.FirstOrDefault(x => x.Id == id);
+
+            if(customerdata == null)
+                return NotFound();
+
+            _context.Remove(customerdata);
+            _context.SaveChanges();
+
+            return RedirectToAction("ReservList");
+            
         }
 
     }

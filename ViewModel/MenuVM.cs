@@ -1,6 +1,6 @@
-﻿namespace Restorant_Project.Models
+﻿namespace Restorant_Project.ViewModel
 {
-    public class Menu
+    public class MenuVM
     {
         public int MenuId { get; set; }
         public string? Image { get; set; }
@@ -9,12 +9,7 @@
         public double Price { get; set; }
         public int LebelId { get; set; }
         public bool IsActive { get; set; }
+        public IFormFile? UploadImage { get; set; }
 
-    }
-
-    public class Lebel
-    {
-        public int LebelId { get; set; }
-        public string? LebelName { get; set; }
     }
 }
