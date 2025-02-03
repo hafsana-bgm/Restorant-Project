@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using Restorant_Project.Data;
 using Restorant_Project.Models;
 using Restorant_Project.ViewModel;
@@ -39,21 +40,51 @@ namespace Restorant_Project.Controllers
                 {
                     await product.UploadImage.CopyToAsync(filestream);
                 }
-
-               
             }
+
+
+            var RealDataModel = new Menu();
+
+            RealDataModel.Name = product.Name;
+            RealDataModel.Price = product.Price;
+            RealDataModel.Description = product.Description;
+            RealDataModel.Image = UniqueFileName;      
+
+
+            _context.Menu.Add(RealDataModel);
+            _context.SaveChanges();
+
+
             return RedirectToAction("MenuCreate");
         }
 
-        public IActionResult Lebls()
-        {
-            return View();
-        }
         public IActionResult MenuList()
         {
             var data = _context.Menu.ToList();
             return View();
         }
 
+        public IActionResult LeblsCreate(Lebel datamodel)
+        {
+            try
+            {
+                _context.Lebels.Add(datamodel);
+                _context.SaveChanges();
+                return Json(true);
+            }
+            catch (Exception)
+            {
+                return Json(true);
+            }
+
+           
+        }
+
+        public IActionResult Lebls()
+        {
+            var data = _context.Lebels.ToList();
+
+            return View(data);
+        }
     }
 }
