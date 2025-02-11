@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewData["Title"] = "ChefsCreate";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model Restorant_Project.Models.Chefs
+<h1>ChefsCreate</h1>
+
+<h4>Chefs</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+       
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label for="Name" class="control-label"></label>
+                <input for="Name" class="form-control" id="Name" name="Name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="Designation" class="control-label"></label>
+                <input for="Designation" class="form-control" id="Designation" name="Designation" />
+                <span asp-validation-for="Designation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="Image" class="control-label"></label>
+                <input for="Image" class="form-control" id="Image" name="Image" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="facebook" class="control-label"></label>
+                <input for="facebook" class="form-control" id="facebook" name="facebook" />
+                <span asp-validation-for="facebook" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="Twitter" class="control-label"></label>
+                <input for="Twitter" class="form-control" id="Twitter" name="Twitter" />
+                <span asp-validation-for="Twitter" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="Instagram" class="control-label"></label>
+                <input for="Instagram" class="form-control" id="Instagram" name="Instagram" />
+                <span asp-validation-for="Instagram" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" id="submitForm" />
+            </div>
+       
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" ></script> 
+
+<script>
+    $(document).ready(function(){
+
+        $("#submitForm").click(function ( ) {
+          
+            var FromData = {
+                Name:$('#Name').val(),
+                Designation:$('#Designation').val(),
+                facebook:$('#facebook').val(),
+                Instagram:$('#Instagram').val(),
+                Twitter:$('#Twitter').val(),
+                Image:$('#Image').val()
+             
+            }
+             console.log(FromData);
+            $.ajax({
+                url:'/Employe/ChefsCreateSubmit',
+                type:'POST',
+                data:JSON.stringify(FromData),
+                success: function(response){
+
+                    alert(response.message);
+                 
+                },
+                error: function(response){
+
+                    alert(response.message);
+                    
+                }
+            
+            
+            });
+        });
+
+    });
+
+
+</script>

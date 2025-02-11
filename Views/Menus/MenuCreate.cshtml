@@ -34,8 +34,18 @@
                         <input type="text" class="form-control" id="Price" placeholder="Price" name="Price">
                     </div>  
                     <div class="form-group">
-                        <label for="L">Labels </label>
-                        <input type="text" class="form-control" id="Price" placeholder="Price" name="Price">
+                        <label for="LebelId">Labels </label>
+                        <select class="form-control" id="LebelId" name="LebelId">
+                            <option value="">--Select Label--</option>
+                            @foreach (var label in ViewBag.LebelList)
+                            {
+                                <option value="@label.Value">@label.Text</option>
+
+                            }
+
+
+
+                        </select>
                     </div>
 
 

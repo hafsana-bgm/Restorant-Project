@@ -1,8 +1,11 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Restorant_Project.Data;
 using Restorant_Project.Models;
 using Restorant_Project.ViewModel;
+using static Restorant_Project.ViewModel.Helper;
+
 
 namespace Restorant_Project.Controllers
 {
@@ -19,6 +22,13 @@ namespace Restorant_Project.Controllers
         }
         public IActionResult MenuCreate()
         {
+            ViewBag.LebelList = _context.Lebels.Select(x => new SelectListItem
+            {
+                Value = x.LebelId.ToString(),
+                Text = x.LebelName
+
+            }).ToList(); 
+
             return View(); 
         }
         [HttpPost]
@@ -27,7 +37,7 @@ namespace Restorant_Project.Controllers
             string UniqueFileName = null;
             if(product.UploadImage !=null)
             {
-                string UploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Upload");
+                string UploadFolder = Path.Combine(Directory.GetCurrentDirectory(), UploadFolder = Image.UploadFolder);
                 UniqueFileName = Guid.NewGuid().ToString() + "_" + product.UploadImage.FileName;
                 string filepath = Path.Combine(UploadFolder, UniqueFileName);
 
@@ -40,6 +50,7 @@ namespace Restorant_Project.Controllers
                 {
                     await product.UploadImage.CopyToAsync(filestream);
                 }
+
             }
 
 
@@ -55,6 +66,12 @@ namespace Restorant_Project.Controllers
             _context.SaveChanges();
 
 
+            ViewBag.LebelList = _context.Lebels.Select(x => new SelectListItem
+            {
+                Value = x.LebelId.ToString(),
+                Text = x.LebelName
+
+            }).ToList();
             return RedirectToAction("MenuCreate");
         }
 
